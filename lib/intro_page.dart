@@ -2,6 +2,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:xo/home_page.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({Key? key}) : super(key: key);
@@ -49,10 +51,13 @@ class _IntroPageState extends State<IntroPage> {
                   child: CircleAvatar(
                     backgroundColor: Colors.grey[900],
                     child: Container(
-                      child: Image.asset(
-                        'images/tictactoelogo.png',
-                        color: Colors.white,
-                        fit: BoxFit.scaleDown,
+                      child: Hero(
+                        tag: 'tag',
+                        child: Image.asset(
+                          'images/tictactoelogo.png',
+                          color: Colors.white,
+                          fit: BoxFit.scaleDown,
+                        ),
                       ),
                     ),
                     radius: 80.0,
@@ -79,7 +84,7 @@ class _IntroPageState extends State<IntroPage> {
           GestureDetector(
             onTap: () {
               playSound('start');
-              Navigator.pushNamed(context, '/HomePage');
+              Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: HomePage()));
             },
             child: Padding(
               padding: EdgeInsets.only(left: 40, right: 40, bottom: 60),

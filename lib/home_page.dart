@@ -25,6 +25,9 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          SizedBox(
+            height: 40,
+          ),
           Expanded(
             child: Container(
               width: width,
@@ -106,46 +109,66 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(
             flex: 5,
-            child: GridView.builder(
-              shrinkWrap: false,
-              padding: EdgeInsets.all(pad),
-              itemCount: 9,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 1,
-              ),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    if (xo[index] == '')
-                      playSound('tic');
-                    else
-                      playSound('error');
-                    _tapped(index);
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: Center(
-                      child: Text(
-                        xo[index],
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontFamily: '2P',
+            child: Stack(
+              children: [
+                Positioned(
+                    top: 20,
+                    left: 15,
+                    child: Hero(
+                      tag: 'tag',
+                      child: Image.asset(
+                        'images/tictactoelogo.png',
+                        color: Colors.white,
+                        width: width - 30,
+                      ),
+                    )),
+                GridView.builder(
+                  shrinkWrap: false,
+                  padding: EdgeInsets.all(pad),
+                  itemCount: 9,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 1,
+                  ),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        if (xo[index] == '')
+                          playSound('tic');
+                        else
+                          playSound('error');
+                        _tapped(index);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.transparent),
+                        ),
+                        child: Center(
+                          child: Text(
+                            xo[index],
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                              fontFamily: '2P',
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ],
             ),
           ),
           Expanded(
             child: Container(
               width: width,
-              child: Center(child: Text('TIC TAC TOE',style: TextStyle(color: Colors.white,fontFamily: '2P',fontSize: 30),)),
+              child: Center(
+                  child: Text(
+                'TIC TAC TOE',
+                style: TextStyle(
+                    color: Colors.white, fontFamily: '2P', fontSize: 30),
+              )),
             ),
           ),
         ],
@@ -216,7 +239,6 @@ class _HomePageState extends State<HomePage> {
               },
               child: Text('Play Again!'),
             ),
-
           ],
         );
       },
@@ -260,5 +282,4 @@ class _HomePageState extends State<HomePage> {
     final player = AudioCache();
     player.play('$sound.wav');
   }
-
 }
